@@ -16,7 +16,7 @@ Python 2.7
 
 Running the Restaurant Menu App
 
-1.  Clone the github repository using the command clone 
+1.  Clone the github repository using the command git clone https://github.com/smandekar1/item-catalog
 2.  navigate to the repository directory within shell 
 3.  Run the database_setup.py command to setup the database 
 4.  Run the project.py command to start the program
