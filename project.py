@@ -14,6 +14,7 @@ import requests
 
 app = Flask(__name__)
 
+
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
@@ -172,6 +173,7 @@ def gconnect():
 
     # Store the access token in the session for later use.
     login_session['credentials'] = credentials
+    #login_session['credentials'] = credentials.to_json()
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -273,6 +275,7 @@ def restaurantsJSON():
     return jsonify(restaurants=[r.serialize for r in restaurants])
 
 
+
 # Show all restaurants
 @app.route('/')
 @app.route('/restaurant/')
@@ -305,10 +308,10 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
-    editedRestaurant = session.query(
-        Restaurant).filter_by(id=restaurant_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    editedRestaurant = session.query(
+        Restaurant).filter_by(id=restaurant_id).one()
     if editedRestaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. Please create your own restaurant in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
@@ -323,10 +326,10 @@ def editRestaurant(restaurant_id):
 # Delete a restaurant
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
+    if 'username' not in login_session:
+        return redirect('/login')    
     restaurantToDelete = session.query(
         Restaurant).filter_by(id=restaurant_id).one()
-    if 'username' not in login_session:
-        return redirect('/login')
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. Please create your own restaurant in order to delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
