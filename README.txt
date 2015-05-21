@@ -31,7 +31,7 @@ htplib2
 
 Installing the Restaurant Menu App
 
-1.  Clone the github repository using the command git clone https://github.com/smandekar1/item-catalog
+1.  Clone the github repository using the command git clone https://github.com/smandekar1/project3
 2.  navigate to the repository directory within shell 
 3.  Run vagrant up and vagrant ssh commnads to run the vagrant virtual machine 
 
